@@ -49,7 +49,7 @@
     <div class="w-full p-5 col-span-6 row-span-4 flex flex-col gap-3 rounded-lg bg-white shadow-lg overflow-y-scroll no-scrollbar">
         @foreach($operators as $operator)
         <div class="w-full p-5 border rounded-lg shadow-md">
-            <div id="operator-{{ $operator->name }}" class="h-96 flex flex-col gap-5 justify-between items-start">
+            <div wire:ignore.self id="operator-{{ $operator->name }}" class="h-full flex flex-col gap-5 justify-between items-start">
                 <div class="w-full flex justify-between items-center">
                     <div class="w-full flex gap-5 items-center">
                         <div class="w-14 h-full rounded-full">
@@ -62,23 +62,47 @@
                     </div>
                     <div>
                         <div class="w-14 h-full rounded-full">
-                            <a href="#" onclick="return toggle('operator-{{ $operator->name }}')"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
+                            <a href="#" onclick="return toggle('operator-{{ $operator->name }}', 'data-{{ $operator->name }}')"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
                         </div>
                     </div>
                 </div>
-                <div class="w-full h-full">
-                    
+                <div wire:ignore.self id="data-{{ $operator->name }}" class="w-full h-full hidden">
+                    <form wire:submit.prevent="saveOperatorChanges({{ $operator->id }})">
+                        <div class="mb-3">
+                            <label class="text-xl font-semibold" for="text-{{ $operator->name }}">Name</label><br>
+                            <input wire:model="operatorNames.{{ $operator->id }}" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
+                            id="text-{{ $operator->name }}" 
+                            placeholder="Operator Name"
+                            >
+                        </div>
+                        @if ($errors->get('operatorNames.'.$operator->id))
+                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                            <span class="font-medium">{{ $errors->get('operatorNames.'.$operator->id)[0] }}</span>
+                        </div>
+                        @endif
+                        <div class="mb-3">
+                            <label class="text-xl font-semibold" for="email-{{ $operator->email }}">Email</label><br>
+                            <input wire:model="operatorEmails.{{ $operator->id }}" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
+                            id="email-{{ $operator->email }}"
+                            placeholder="Operator Email"
+                            >
+                        </div>
+                        @if ($errors->get('operatorEmails.'.$operator->id))
+                        <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                            <span class="font-medium">{{ $errors->get('operatorEmails.'.$operator->id)[0] }}</span>
+                        </div>
+                        @endif
+                        <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
+                    </form>
                 </div>
             </div>
         </div>
         @endforeach
     </div>
     <script type='text/javascript'>
-        function toggle(operatorId)
+        function toggle(operatorId, data)
         {
-            let operator = document.getElementById(operatorId);
-            operator.classList.toggle('h-full')
-            operator.classList.toggle('h-96')
+            let operatorData = document.getElementById(data);
             operatorData.classList.toggle('hidden')
         }
     </script>
