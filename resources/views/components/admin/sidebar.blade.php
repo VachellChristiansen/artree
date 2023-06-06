@@ -6,9 +6,8 @@
                 <div class="w-full h-[1px] bg-black"></div>
             </div>
             <a href="/admin/Home"><img class="{{ $current=='Home' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/Home.svg') }}" alt=""></a>
-            <a href="/admin/User"><img class="{{ $current=='User' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/User.svg') }}" alt=""></a>
-            <a href="/admin/Chart"><img class="{{ $current=='Chart' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/Chart.svg') }}" alt=""></a>
-            <a href="/admin/Calendar"><img class="{{ $current=='Calendar' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/Calendar.svg') }}" alt=""></a>
+            <a href="/admin/Operator"><img class="{{ $current=='Operator' || $current=='OpEditor' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/User.svg') }}" alt=""></a>
+            <a href="/admin/Globe"><img class="{{ $current=='Globe' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/Globe.svg') }}" alt=""></a>
         </div>
         <div class="w-full p-7">
             <a href="/admin/Settings"><img class="{{ $current=='Settings' ? 'opacity-100' : 'opacity-40' }} hover:opacity-100" src="{{ asset('assets/admin/Settings.svg') }}" alt=""></a>

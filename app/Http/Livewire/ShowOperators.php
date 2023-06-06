@@ -43,15 +43,6 @@ class ShowOperators extends Component
 
     public function chooseRole($role) {
         $this->search = $role;
-        return view('livewire.show-operators', [
-            'operators' => DB::table('operators')
-            ->join('clearance', 'operators.clearance_id', '=', 'clearance.id')
-            ->select('operators.id', 'operators.name', 'operators.email', 'clearance.role')
-            ->where('role', 'like', '%'.$this->search.'%')
-            ->orWhere('name', 'like', '%'.$this->search.'%')
-            ->get(),
-            'roles' => DB::table('clearance')->select('role')->get()
-        ]);
     }
 
     public function saveOperatorChanges($id) {
@@ -59,6 +50,12 @@ class ShowOperators extends Component
             'operatorNames.'.$id => 'required|regex:/^[a-zA-Z0-9\s]+$/|between:3,60',
             'operatorEmails.'.$id => 'required|email:rfc,dns'
         ]);
-        dump($validatedData);
+
+        $affected = DB::table('operators')
+        ->where('id', $id)
+        ->update([
+            'name' => $validatedData['operatorNames'][$id],
+            'email' => $validatedData['operatorEmails'][$id]
+        ]);
     }
 }

@@ -21,6 +21,9 @@ Route::get('/info', function () {
     return view('phpinfo');
 });
 
+Route::get('/test' , function () {
+    return view('testing');
+});
 
 // Home
 Route::get('/', [HomeController::class, 'show']);

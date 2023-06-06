@@ -11,5 +11,6 @@
         @vite('resources/css/app.css')
     </head>
     <body class="antialiased">
+        
     </body>
 </html>

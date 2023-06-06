@@ -117,15 +117,13 @@
                 })();
             </script>
         </div>
-    @elseif($current=="User")
+    @elseif($current=="Operator")
         <livewire:show-operators></livewire:show-operators>
-    @elseif($current=="Chart")
+    @elseif($current=="OpEditor")
+        <livewire:edit-operators></livewire:edit-operators>
+    @elseif($current=="Globe")
         <div class="w-full h-full p-5">
-            Chart Panel
-        </div>
-    @elseif($current=="Calendar")
-        <div class="w-full h-full p-5">
-            Calendar Panel
+            Web Panel
         </div>
     @elseif($current=="Settings")
         <div class="w-full h-full p-5">
