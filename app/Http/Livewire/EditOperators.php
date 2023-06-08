@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class EditOperators extends Component
 {
+    public $route = '';
     public $search = '';
     public $state = '';
     public $who;
@@ -17,8 +18,17 @@ class EditOperators extends Component
     public $operatorEmail = '';
     public $operatorPassword = '';
 
+    public function mount() {
+        $this->route = url()->previous();
+    }
+
     public function render()
     {
+        $data = DB::table('operators')
+        ->where('id', $this->who)
+        ->first();
+        $roles = DB::table('clearance')->select('id', 'role')->pluck('id', 'role');
+
         return view('livewire.edit-operators', [
             'operators' => DB::table('operators')
             ->join('clearance', 'operators.clearance_id', '=', 'clearance.id')
@@ -26,10 +36,8 @@ class EditOperators extends Component
             ->where('role', 'like', '%'.$this->search.'%')
             ->orWhere('name', 'like', '%'.$this->search.'%')
             ->get(),
-            'roles' => DB::table('clearance')->select('role')->get(),
-            'data' => DB::table('operators')
-            ->where('id', $this->who)
-            ->first(),
+            'roles' => $roles,
+            'data' => $data,
             'state' => $this->state,
         ]);
     }
@@ -37,6 +45,13 @@ class EditOperators extends Component
     public function edit($id) {
         $this->state = 'edit';
         $this->who = $id;
+        $data = DB::table('operators')
+        ->where('id', $this->who)
+        ->first();
+        $this->operatorName = $data->name;
+        $this->operatorEmail = $data->email;
+        $this->operatorPassword = '';
+        $this->operatorClearance = '';
     }
 
     public function add() {
@@ -50,9 +65,20 @@ class EditOperators extends Component
         ->first();
         if(Hash::check($this->operatorPassword, $currPassword->password)) {
             $validatedData = $this->validate([
-                $this->operatorName => 'required|regex:/^[a-zA-Z0-9\s]+$/|between:3,60',
-                $this->operatorEmail => 'required|email:rfc,dns'
+                'operatorName' => 'required|regex:/^[a-zA-Z0-9\s]+$/|between:3,60',
+                'operatorEmail' => 'required|email:rfc,dns',
+                'operatorClearance' => 'required'
             ]);
+            $affected = DB::table('operators')
+            ->where('id', $id)
+            ->update([
+                'name' => $validatedData['operatorName'],
+                'email' => $validatedData['operatorEmail'],
+                'clearance_id' => $validatedData['operatorClearance']
+            ]);
+            $this->state = '';
         }
+        $this->operatorPassword = '';
+        $this->addError('operatorPassword', 'The provided credentials do not match our records.');
     }
 }

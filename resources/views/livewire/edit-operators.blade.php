@@ -47,8 +47,8 @@
                         </div>
                     </div>
                     <div>
-                        <div class="w-14 h-full rounded-full">
-                            <a href="#" wire:click="edit({{ $operator->id }})"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
+                        <div class="w-14 h-full rounded-full hover:cursor-pointer">
+                            <a wire:click="edit({{ $operator->id }})"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -56,28 +56,36 @@
         </div>
         @endforeach
     </div>
-    <div class="w-full p-5 col-span-5 row-span-5 flex flex-col gap-3 rounded-lg bg-white shadow-lg overflow-y-scroll no-scrollbar">
+    <div wire:ignore.self class="w-full p-5 col-span-5 row-span-5 flex flex-col gap-3 rounded-lg bg-white shadow-lg overflow-y-scroll no-scrollbar">
         @if ($state=='edit')
             <h1 class="text-3xl font-semibold"><strong>Editing: </strong>{{ $data->name }}</h1>
             <form wire:submit.prevent="update({{ $data->id }})">
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="text-{{ $data->id }}">Name</label><br>
-                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
+                    <input wire:model="operatorName" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
                     id="text-{{ $data->id }}" 
                     placeholder="Operator's Name"
-                    value="{{ $data->name }}"
                     required="true"
                     >
                 </div>
+                @if ($errors->get('operatorName'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorName')[0] }}</span>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="email-{{ $data->id }}">Email</label><br>
-                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
+                    <input wire:model="operatorEmail" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
                     id="email-{{ $data->id }}" 
                     placeholder="Operator's Email"
-                    value="{{ $data->email }}"
                     required="true"
                     >
                 </div>
+                @if ($errors->get('operatorEmail'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorEmail')[0] }}</span>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="password-{{ $data->id }}">Password</label><br>
                     <input wire:model="operatorPassword" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="password"
@@ -87,8 +95,28 @@
                     >
                     <span class="text-sm font-medium text-gray-400 opacity-80">Input Password to save Changes</span>
                 </div>
-                <x-form-input.radio label="Clearance" name="radio" :radioOptions="$roles"></x-form-input.radio>
-
+                @if ($errors->get('operatorPassword'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorPassword')[0] }}</span>
+                </div>
+                @endif
+                <div class="mb-3">
+                    <span class="text-xl font-semibold">Clearance</span><br>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach($roles as $option => $value)
+                    <input wire:model="operatorClearance" class="mr-3 scale-[1.5]" type="radio" 
+                    id="radio-clearance-{{ $i }}" 
+                    value="{{ $value }}"
+                    required="true"
+                    >
+                    <label class="text-xl font-semibold" for="radio-clearance-{{ $i }}">{{ $option }}</label><br>
+                    @php
+                        $i++;
+                    @endphp
+                    @endforeach
+                </div>
                 <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
             </form>
         @elseif($state=='add')
