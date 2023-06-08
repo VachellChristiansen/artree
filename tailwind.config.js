@@ -6,7 +6,12 @@ export default {
       "./resources/**/*.vue",
     ],
   theme: {
-    extend: {},
+    extend: {
+        keyframes: {
+        },
+        animation: {
+        }
+    },
   },
   plugins: [],
 }

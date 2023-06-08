@@ -7,9 +7,18 @@
         </a>
     </div>
 
-    <div class="w-full p-5 col-span-4 row-span-1 rounded-lg bg-white shadow-lg">
+    <div class="w-full p-5 col-span-3 row-span-1 rounded-lg bg-white shadow-lg">
         <h2 class="text-3xl font-semibold">Operator Editor</h2>
         <p class="text-md text-gray-400">You can edit Operators Access here, decide who's worthy.</p>
+    </div>
+
+    <div class="w-full p-5 col-span-1 row-span-1 rounded-lg bg-white shadow-lg">
+        <a wire:click="add" class="w-full h-full group flex justify-center items-center hover:cursor-pointer">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" class="w-full h-full stroke-green-400 group-hover:hidden">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+            </svg>
+            <h2 class="hidden text-center text-3xl text-green-400 font-semibold group-hover:block">Add User</h2>
+        </a>
     </div>
 
     <div class="w-full p-5 col-span-3 row-span-1 rounded-lg bg-white shadow-lg">
@@ -48,7 +57,7 @@
         @endforeach
     </div>
     <div class="w-full p-5 col-span-5 row-span-5 flex flex-col gap-3 rounded-lg bg-white shadow-lg overflow-y-scroll no-scrollbar">
-        @if ($editing)
+        @if ($state=='edit')
             <h1 class="text-3xl font-semibold"><strong>Editing: </strong>{{ $data->name }}</h1>
             <form wire:submit.prevent="update({{ $data->id }})">
                 <div class="mb-3">
@@ -73,6 +82,38 @@
                     <label class="text-xl font-semibold" for="password-{{ $data->id }}">Password</label><br>
                     <input wire:model="operatorPassword" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="password"
                     id="password-{{ $data->id }}"
+                    placeholder="Operator's Password"
+                    required="true"
+                    >
+                    <span class="text-sm font-medium text-gray-400 opacity-80">Input Password to save Changes</span>
+                </div>
+                <x-form-input.radio label="Clearance" name="radio" :radioOptions="$roles"></x-form-input.radio>
+
+                <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
+            </form>
+        @elseif($state=='add')
+            <h1 class="text-3xl font-semibold"><strong>Adding Operators</strong></h1>
+            <form wire:submit.prevent="addNew">
+                <div class="mb-3">
+                    <label class="text-xl font-semibold" for="text-new">Name</label><br>
+                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
+                    id="text-new" 
+                    placeholder="Operator's Name"
+                    required="true"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label class="text-xl font-semibold" for="email-new">Email</label><br>
+                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
+                    id="email-new" 
+                    placeholder="Operator's Email"
+                    required="true"
+                    >
+                </div>
+                <div class="mb-3">
+                    <label class="text-xl font-semibold" for="password-new">Password</label><br>
+                    <input wire:model="operatorPassword" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="password"
+                    id="password-new"
                     placeholder="Operator's Password"
                     required="true"
                     >

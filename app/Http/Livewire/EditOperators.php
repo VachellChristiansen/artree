@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 class EditOperators extends Component
 {
     public $search = '';
-    public $editing = false;
+    public $state = '';
     public $who;
 
     public $operatorClearance;
@@ -30,13 +30,17 @@ class EditOperators extends Component
             'data' => DB::table('operators')
             ->where('id', $this->who)
             ->first(),
-            'editing' => $this->editing,
+            'state' => $this->state,
         ]);
     }
 
     public function edit($id) {
-        $this->editing = true;
+        $this->state = 'edit';
         $this->who = $id;
+    }
+
+    public function add() {
+        $this->state = 'add';
     }
 
     public function update($id) {
