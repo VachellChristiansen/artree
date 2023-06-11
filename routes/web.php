@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BotmanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,10 @@ Route::get('/info', function () {
 });
 
 Route::get('/test' , function () {
-    return view('testing');
+    $response = Http::acceptJson()->get('http://127.0.0.1:5000');
+    return view('testing', [
+        'res' => $response
+    ]);
 });
 
 // Home

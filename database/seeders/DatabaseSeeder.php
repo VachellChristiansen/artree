@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             ClearanceSeeder::class,
-            OperatorSeeder::class
+            OperatorSeeder::class,
+            BotResponseSeeder::class
         ]);
     }
 }

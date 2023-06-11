@@ -1,4 +1,4 @@
-<header class=" w-full py-3 bg-amber-200">
+<header class="z-0 w-full py-3 bg-amber-200">
     <div class="mx-[3rem] md:mx-[6rem] lg:mx-[9rem] flex justify-between">
         <div>
             <a class="hover:opacity-50 transition-opacity" href="#">

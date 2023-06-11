@@ -1,4 +1,4 @@
-<footer class="w-full py-10 border-t border-black bg-amber-200">
+<footer class="z-0 w-full py-10 border-t border-black bg-amber-200">
     <div class="mx-[3rem] md:mx-[6rem] lg:mx-[9rem]">
         <div class="grid grid-cols-3 gap-5">
             <div class="flex flex-col gap-5 items-start">

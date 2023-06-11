@@ -9,8 +9,10 @@
         <!-- Styles -->
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         @vite('resources/css/app.css')
+        @livewireStyles
     </head>
     <body class="antialiased">
-        
+        <livewire:chat-bot></livewire:chat-bot>
+        @livewireScripts
     </body>
 </html>
