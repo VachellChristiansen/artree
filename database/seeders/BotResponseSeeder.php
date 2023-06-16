@@ -14,7 +14,7 @@ class BotResponseSeeder extends Seeder
     public function run(): void
     {
         $list = array([
-            "hi" => "Hello!","hi" => "hello!",
+            "hi" => "Hello!",
             "apakah artree tersedia dalam berbagai rasa" => "ya, artree tersedia dalam rasa kismis, kacang tanah, kacang almond, kelapa, kacang mete, dan nanas.",
             "apakah artree mengandung protein" => "ya, artree adalah snack protein yang mengandung tinggi protein.",
             "apa manfaat mengkonsumsi artree" => "mengkonsumsi artree dapat membantu memenuhi kebutuhan protein harian anda dan memberikan energi yang tahan lama.",

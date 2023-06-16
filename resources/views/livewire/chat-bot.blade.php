@@ -1,6 +1,6 @@
-<div class="z-10 w-full h-screen fixed">
+<div class="pointer-events-none z-10 w-full h-screen fixed">
     @if($state == 'closed')
-    <div wire:click="open" class="bottom-16 right-16 w-24 h-24 p-3 absolute bg-amber-500 rounded-full hover:cursor-pointer hover:animate-bounce"></div>
+    <div wire:click="open" class="z-10 bottom-16 right-16 w-24 h-24 p-3 absolute bg-amber-500 rounded-full hover:cursor-pointer hover:animate-bounce"></div>
     @elseif($state == 'opened')
     <div class="bottom-16 right-16 w-1/4 h-1/2 flex flex-col absolute bg-blue-100 rounded-md">
         <div class="w-full px-3 py-1 flex justify-between bg-amber-500 rounded-t-md">
@@ -43,7 +43,7 @@
                 >
             </form>
             @if ($errors->get('ask'))
-            <div id="invalidAsk" class="top-5 right-5 w-1/4 p-5 grid grid-cols-4 gap-3 fixed bg-amber-100 border-amber-400 rounded-md">
+            <div id="invalidAsk" class="top-5 right-5 w-1/4 p-5 grid grid-cols-4 gap-3 fixed bg-red-100 border-black rounded-md">
                 <div class="pr-3 col-span-3 border-r border-gray-500">
                     {{ $errors->get('ask')[0] }}
                 </div>
