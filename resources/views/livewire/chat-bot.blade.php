@@ -1,8 +1,8 @@
 <div class="pointer-events-none z-10 w-full h-screen fixed">
     @if($state == 'closed')
-    <div wire:click="open" class="z-10 bottom-16 right-16 w-24 h-24 p-3 absolute bg-amber-500 rounded-full hover:cursor-pointer hover:animate-bounce"></div>
+    <div wire:click="open" class="pointer-events-auto z-10 bottom-16 right-16 w-24 h-24 p-3 absolute bg-amber-500 rounded-full hover:cursor-pointer hover:animate-bounce"></div>
     @elseif($state == 'opened')
-    <div class="bottom-16 right-16 w-1/4 h-1/2 flex flex-col absolute bg-blue-100 rounded-md">
+    <div class="pointer-events-auto z-10 bottom-16 right-16 w-1/4 h-1/2 flex flex-col absolute bg-blue-100 rounded-md">
         <div class="w-full px-3 py-1 flex justify-between bg-amber-500 rounded-t-md">
             <h1>Artree ChatBot</h1>
 
