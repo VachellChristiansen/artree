@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class ChatBot extends Component
 {
@@ -59,15 +60,17 @@ class ChatBot extends Component
             'ask' => 'regex:/^[a-zA-Z0-9,!?\.\s]+$/'
         ]);
 
+        $typoCorr = $this->typoCorrection($validatedData['ask']);
+
         $affected = DB::table('chatbot')->insert([
             'chat_id' => $this->chatId,
             'actor' => 'user',
-            'chat' => $validatedData['ask']
+            'chat' => $typoCorr['text']
         ]);
         $chatData = DB::table('chatbot')->select('actor', 'chat')->where('chat_id', $this->chatId)->get();
         $this->userChat = $chatData ? $chatData : [];
         $this->dispatchBrowserEvent('contentChanged', ['event' => 'Added']);
-        $this->fetchResponse($this->ask);
+        $this->fetchResponse($typoCorr['text']);
         $this->ask = '';
     }
 
@@ -82,5 +85,28 @@ class ChatBot extends Component
         $chatData = DB::table('chatbot')->select('actor', 'chat')->where('chat_id', $this->chatId)->get();
         $this->userChat = $chatData ? $chatData : [];
         $this->dispatchBrowserEvent('contentChanged', ['event' => 'Added']);
+    }
+
+    public function typoCorrection(string $ask) {
+        $url = 'http://127.0.0.1:5000/typo'; // Replace with the API endpoint URL
+        $queryParams = [
+            'text' => $ask
+        ];
+
+        try {
+            $response = Http::get($url, $queryParams);
+
+            if ($response->successful()) {
+                $data = $response->json(); // Convert the response to JSON
+                // Process the API data as needed
+                return $data;
+            } else {
+                // Handle the case when the API request is not successful
+                return response()->json(['error' => 'API request failed'], $response->status());
+            }
+        } catch (Exception $e) {
+            // Handle exceptions if any occurred during the API request
+            return response()->json(['error' => 'API request error'], 500);
+        }
     }
 }
