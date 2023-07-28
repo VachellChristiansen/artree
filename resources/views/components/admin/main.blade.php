@@ -122,9 +122,7 @@
     @elseif($current=="OpEditor")
         <livewire:edit-operators></livewire:edit-operators>
     @elseif($current=="Globe")
-        <div class="w-full h-full p-5">
-            Web Panel
-        </div>
+        <livewire:edit-bot></livewire:edit-bot>
     @elseif($current=="Settings")
         <div class="w-full h-full p-5">
             Settings Panel

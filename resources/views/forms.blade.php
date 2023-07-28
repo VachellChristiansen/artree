@@ -14,7 +14,7 @@
                 width: 10px;
                 border-radius: 10px;
                 background: black;
-                animation: movement .24s ease-in-out infinite;
+                animation: movement 1s ease-in-out infinite;
             }
 
             @keyframes movement {
@@ -27,7 +27,7 @@
             }
             
             .loading .bar:nth-child(1) {
-                animation-delay: 1s;
+                animation-delay: .4s;
             }
             
             .loading .bar:nth-child(2) {
@@ -35,31 +35,31 @@
             }
             
             .loading .bar:nth-child(3) {
-                animation-delay: .6s;
+                animation-delay: 1.2s;
             }
             
             .loading .bar:nth-child(4) {
-                animation-delay: .4s;
+                animation-delay: 1.6s;
             }
             
             .loading .bar:nth-child(5) {
-                animation-delay: .2s;
+                animation-delay: 2s;
             }
             
             .loading .bar:nth-child(6) {
-                animation-delay: .4s;
+                animation-delay: 2.4s;
             }
             
             .loading .bar:nth-child(7) {
-                animation-delay: .6s;
+                animation-delay: 2.8s;
             }
             
             .loading .bar:nth-child(8) {
-                animation-delay: .8s;
+                animation-delay: 3.2s;
             }
             
             .loading .bar:nth-child(9) {
-                animation-delay: 1s;
+                animation-delay: 3.6s;
             }
         </style>
     </head>
