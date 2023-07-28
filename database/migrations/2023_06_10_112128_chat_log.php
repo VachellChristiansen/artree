@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chatlog', function (Blueprint $table) {
             $table->id();
-            $table->string('info');
+            $table->text('info');
             $table->timestamp('updated_at')->useCurrent();
         });
     }

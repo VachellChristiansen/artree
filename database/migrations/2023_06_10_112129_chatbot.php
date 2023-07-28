@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('chat_id');
             $table->string('actor');
-            $table->string('chat');
+            $table->text('chat');
             $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('chat_id')->references('id')->on('chatlog');
