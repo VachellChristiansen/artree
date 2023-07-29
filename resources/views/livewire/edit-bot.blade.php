@@ -6,11 +6,11 @@
     <div class="w-full p-5 col-span-4 row-span-1 rounded-lg bg-white shadow-lg">
         <div class="w-full h-full flex justify-between gap-5">
             <div class="flex-grow">
-                <label class="text-xl font-semibold" for="text-search-operators">Search</label><br>
+                <label class="text-xl font-semibold" for="text-search-question">Search</label><br>
                 <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" wire:model="search" type="text"
-                id="text-search-operators"
-                name="search-operators"
-                placeholder="Search Operators"
+                id="text-search-question"
+                name="search-question"
+                placeholder="Search Question"
                 >
             </div>
             <div class="w-[10%] aspect-square rounded-lg bg-white shadow-lg border-2 hover:brightness-90">
@@ -56,7 +56,10 @@
                                 <span class="font-medium">{{ $errors->get('botResponses.'.$bot->id)[0] }}</span>
                             </div>
                             @endif
-                            <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
+                            <div class="w-full flex justify-end gap-3">
+                                <a onclick="confirm('Are you sure to delete this Question?')" wire:click="deleteResponse({{ $bot->id }})" href="#"><img class="px-3 py-1 h-[150px] aspect-square border-2 rounded-md hover:border-blue-400" src="{{ asset('/assets/form/sampo-trash.png') }}"></img></a>
+                                <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
+                            </div>
                         </form>
                     </div>
                 </div>

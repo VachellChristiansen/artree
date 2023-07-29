@@ -35,7 +35,8 @@ class EditBot extends Component
         ]);
     }
 
-    public function addBotResponse() {
+    public function addBotResponse()
+    {
         $validatedData = $this->validate([
             'addQuestion' => ['required', 'regex:/^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|:;<>,.?~`\s]+$/'],
             'addResponse' => 'required'
@@ -47,7 +48,8 @@ class EditBot extends Component
         ]);
     }
 
-    public function saveBotChanges($id) {
+    public function saveBotChanges($id)
+    {
         $validatedData = $this->validate([
             'botQuestions.'.$id => ['required', 'regex:/^[a-zA-Z0-9!@#$%^&*()_+=[\]{}|:;<>,.?~`\s]+$/'],
             'botResponses.'.$id => 'required'
@@ -59,5 +61,12 @@ class EditBot extends Component
             'question' => $validatedData['botQuestions'][$id],
             'response' => $validatedData['botResponses'][$id]
         ]);
+    }
+
+    public function deleteResponse($id)
+    {
+        $deleted = DB::table('botresponse')
+        ->where('id', $id)
+        ->delete();
     }
 }
