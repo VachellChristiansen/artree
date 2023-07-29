@@ -54,7 +54,6 @@ class BotResponseSeeder extends Seeder
         foreach ($list[0] as $question => $response) {
             DB::table('botresponse')->insert(
                 [
-                    'id' => $i,
                     'question' => $question,
                     'response' => $response
                 ]

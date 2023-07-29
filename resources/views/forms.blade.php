@@ -87,6 +87,7 @@
                 <form action="/forms/submit" enctype="multipart/form-data" method="POST">
                     @csrf
                     <x-form-input.text label="Name" name="name" placeholder="Your Name" pattern="^[a-zA-Z]{3,20}$" required="true" note="Only Alphabets, 3 to 20 Characters."></x-form-input.text>
+                    <x-form-input.text-area label="Full Name" name="fullname" placeholder="Your Full Name" required="true" note="Only Alphabets"></x-form-input.text-area>
                     <x-form-input.password label="Password" name="password" placeholder="Your Password" required="true" note="Password is Required"></x-form-input.password>
                     @php
                     //This array can be made from the controller

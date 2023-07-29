@@ -52,7 +52,7 @@
                     </div>
                     <div>
                         <div class="w-14 h-full rounded-full">
-                            <a href="#" onclick="return toggle('operator-{{ $operator->name }}', 'data-{{ $operator->name }}')"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
+                            <a href="#" onclick="return toggle('data-{{ $operator->name }}')"><img class="w-full h-full rounded-full hover:bg-gray-100" src="{{ asset('assets/admin/Ellipsis.svg')}}" alt=""></a>
                         </div>
                     </div>
                 </div>
@@ -101,7 +101,7 @@
     </div>
 
     <script type='text/javascript'>
-        function toggle(operatorId, data)
+        function toggle(data)
         {
             let operatorData = document.getElementById(data);
             operatorData.classList.toggle('hidden')

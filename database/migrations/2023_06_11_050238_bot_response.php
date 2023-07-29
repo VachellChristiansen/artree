@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('botresponse', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->text('question');
             $table->text('response');
             $table->timestamp('updated_at')->useCurrent();

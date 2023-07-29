@@ -35,9 +35,7 @@ class ShowOperators extends Component
             ->orWhere('name', 'like', '%'.$this->search.'%')
             ->get(),
             'roles' => DB::table('clearance')->select('role')->get(),
-            'data' => '',
-            'testName' => $this->operatorNames,
-            'testEmail' => $this->operatorEmails
+            'data' => ''
         ]);
     }
 
