@@ -3,7 +3,7 @@ from symspellpy import SymSpell, Verbosity
 
 # initialize
 sym_spell = SymSpell()
-path_corpus = "./corpus/opensubtitles.txt"
+path_corpus = "./corpus/modified.txt"
 sym_spell.create_dictionary(path_corpus, encoding="UTF-8")
 
 # Create a Flask app
