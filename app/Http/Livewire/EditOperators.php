@@ -58,6 +58,32 @@ class EditOperators extends Component
         $this->state = 'add';
     }
 
+    public function addNew() {
+        $validatedData = $this->validate([
+            'operatorName' => 'required|regex:/^[a-zA-Z0-9\s]+$/|between:3,60',
+            'operatorPassword' => 'required|regex:/^[a-zA-Z0-9\s]+$/|between:3,60',
+            'operatorEmail' => 'required|email:rfc,dns',
+            'operatorClearance' => 'required'
+        ]);
+        
+        $data = DB::table('operators')
+        ->where('email', $validatedData['operatorEmail'])
+        ->first();
+        
+        if ($data) {
+            $this->addError('operatorEmail', 'Email is already used for the account');
+            return;
+        }
+
+        DB::table('operators')->insert([
+            'clearance_id' => $validatedData['operatorClearance'],
+            'name' => $validatedData['operatorName'],
+            'password' => Hash::make($validatedData['operatorPassword']),
+            'email' => $validatedData['operatorEmail'],
+        ]);
+        $this->state = '';
+    }
+
     public function update($id) {
         $currPassword = DB::table('operators')
         ->select('password')

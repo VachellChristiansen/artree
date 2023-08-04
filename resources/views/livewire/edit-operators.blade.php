@@ -124,20 +124,30 @@
             <form wire:submit.prevent="addNew">
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="text-new">Name</label><br>
-                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
+                    <input wire:model="operatorName" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="text"
                     id="text-new" 
                     placeholder="Operator's Name"
                     required="true"
                     >
                 </div>
+                @if ($errors->get('operatorName'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorName')[0] }}</span>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="email-new">Email</label><br>
-                    <input class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
+                    <input wire:model="operatorEmail" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="email"
                     id="email-new" 
                     placeholder="Operator's Email"
                     required="true"
                     >
                 </div>
+                @if ($errors->get('operatorEmail'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorEmail')[0] }}</span>
+                </div>
+                @endif
                 <div class="mb-3">
                     <label class="text-xl font-semibold" for="password-new">Password</label><br>
                     <input wire:model="operatorPassword" class="w-full px-3 py-1 border-2 rounded-md focus:outline-blue-400" type="password"
@@ -145,9 +155,29 @@
                     placeholder="Operator's Password"
                     required="true"
                     >
-                    <span class="text-sm font-medium text-gray-400 opacity-80">Input Password to save Changes</span>
                 </div>
-                <x-form-input.radio label="Clearance" name="radio" :radioOptions="$roles"></x-form-input.radio>
+                @if ($errors->get('operatorPassword'))
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg" role="alert">
+                    <span class="font-medium">{{ $errors->get('operatorPassword')[0] }}</span>
+                </div>
+                @endif
+                <div class="mb-3">
+                    <span class="text-xl font-semibold">Clearance</span><br>
+                    @php
+                        $i = 1;
+                    @endphp
+                    @foreach($roles as $option => $value)
+                    <input wire:model="operatorClearance" class="mr-3 scale-[1.5]" type="radio" 
+                    id="radio-clearance-{{ $i }}" 
+                    value="{{ $value }}"
+                    required="true"
+                    >
+                    <label class="text-xl font-semibold" for="radio-clearance-{{ $i }}">{{ $option }}</label><br>
+                    @php
+                        $i++;
+                    @endphp
+                    @endforeach
+                </div>
 
                 <x-form-input.image label="Image" name="image" img="{{ asset('/assets/form/pompom-ok.png') }}" width="150" height="150"></x-form-input.image>
             </form>
